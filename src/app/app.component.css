@@ -1,0 +1,9 @@
+.container{
+    display: inline-flexbox;
+    height: 100%;
+    margin: 0%;
+}
+
+.bgcolor{
+    background-color: rgb(26, 164, 182);
+}
