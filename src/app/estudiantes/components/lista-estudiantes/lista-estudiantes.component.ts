@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Estudiante } from '../../models/estudiante';
@@ -10,7 +10,7 @@ import { AbmEstudianteService } from '../../services/abm-estudiante.service';
   styleUrls: ['./lista-estudiantes.component.css']
 })
 export class ListaEstudiantesComponent implements OnInit {
-  
+ 
   estudiantes$!: Observable<Estudiante[]>;
 
   columnas: string[] =["nombreCompleto", "edad", "curso", "accion"];
@@ -30,4 +30,5 @@ export class ListaEstudiantesComponent implements OnInit {
   editarEstudiante(estudiante: Estudiante){
     this.router.navigate(['estudiantes/editar', estudiante]);
   }
+  
 }

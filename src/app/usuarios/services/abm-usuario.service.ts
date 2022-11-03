@@ -47,13 +47,13 @@ export class AbmUsuarioService {
 /////////////////////////////// 
 
 // Obtener Lista de usuarios
-obtenerusuarios(): Observable<Usuario[]>{
+obtenerUsuarios(): Observable<Usuario[]>{
   return this.usuariosSubject.asObservable();
 }
 
 // Obtener un usuario
-obtenerusuario(id: number): Observable<Usuario[]>{
-  return this.obtenerusuarios().pipe(
+obtenerUsuario(id: number): Observable<Usuario[]>{
+  return this.obtenerUsuarios().pipe(
     map((usuarios: Usuario[]) => usuarios.filter((e: Usuario) => e.id === id))
   )
 }

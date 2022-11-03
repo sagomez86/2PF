@@ -20,7 +20,7 @@ export class ListaUsuariosComponent implements OnInit {
               ) { }
 
   ngOnInit(): void {
-    this.usuarios$ = this.abmUsuariosService.obtenerusuarios();
+    this.usuarios$ = this.abmUsuariosService.obtenerUsuarios();
   }
 
   eliminarUsuario(id: number) : void {

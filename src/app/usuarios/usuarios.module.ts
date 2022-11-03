@@ -6,10 +6,9 @@ import { ListaUsuariosComponent } from './components/lista-usuarios/lista-usuari
 import { AgregarUsuariosComponent } from './components/agregar-usuarios/agregar-usuarios.component';
 import { EditarUsuariosComponent } from './components/editar-usuarios/editar-usuarios.component';
 import { InicioUsuariosComponent } from './components/inicio-usuarios/inicio-usuarios.component';
-import { MaterialModule } from '../material.module';
 import { AbmUsuarioService } from './services/abm-usuario.service';
 import { SharedModule } from '../shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { DetalleUsuariosComponent } from './components/detalle-usuarios/detalle-usuarios.component';
 
 
 
@@ -18,14 +17,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListaUsuariosComponent,
     AgregarUsuariosComponent,
     EditarUsuariosComponent,
-    InicioUsuariosComponent
+    InicioUsuariosComponent,
+    DetalleUsuariosComponent
   ],
   imports: [
     CommonModule,
     UsuariosRoutingModule,
-    MaterialModule,
-    SharedModule,
-    ReactiveFormsModule
+    SharedModule
   ],
   providers:[
     AbmUsuarioService

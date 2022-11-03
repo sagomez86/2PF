@@ -8,6 +8,10 @@ import { AgregarCursosComponent } from './components/agregar-cursos/agregar-curs
 import { MaterialModule } from '../material.module';
 import { InicioCursosComponent } from './components/inicio-cursos/inicio-cursos.component';
 import { AbmCursoService } from './services/abm-curso.service';
+import { DetalleCursosComponent } from './components/detalle-cursos/detalle-cursos.component';
+import { SharedModule } from '../shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -15,12 +19,13 @@ import { AbmCursoService } from './services/abm-curso.service';
     InicioCursosComponent,
     ListaCursosComponent,
     EditarCursosComponent,
-    AgregarCursosComponent
+    AgregarCursosComponent,
+    DetalleCursosComponent
   ],
   imports: [
     CommonModule,
     CursosRoutingModule,
-    MaterialModule
+    SharedModule
   ],
   providers:[
     AbmCursoService

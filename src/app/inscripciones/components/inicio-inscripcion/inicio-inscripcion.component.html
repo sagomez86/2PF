@@ -1,0 +1,10 @@
+<p>inicio-inscripcion works!</p>
+
+<pre>{{inscripcion$ | async | json}}</pre>
+
+<div *ngIf="(inscripcion$ | async )  as es">
+<li >{{es[0].id_estudiantes[0]}}</li>
+
+<li *ngFor="let i of es[0].id_estudiantes;index as j" >{{es[0].id_estudiantes[j]}}</li>
+
+</div>

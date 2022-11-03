@@ -1,0 +1,33 @@
+<h1>Detalle de Curso</h1>
+
+<div *ngIf="(curso$ | async )  as es">
+    <form >
+        <mat-form-field appearance="fill">
+            <mat-label>Nombre</mat-label>
+            <input matInput > {{es[0].nombre }}
+        </mat-form-field>
+    </form>
+    <form >
+        <mat-form-field appearance="fill">
+            <mat-label>Cantiad Horas</mat-label>
+            <input matInput > {{es[0].cantidad_horas }}
+        </mat-form-field>
+    </form>
+    <form >
+        <mat-form-field appearance="fill">
+            <mat-label>Cantidad Clases</mat-label>
+            <input matInput > {{es[0].cantidad_clases }}
+        </mat-form-field>
+    </form>
+    <form >
+        <mat-form-field appearance="fill">
+            <mat-label>Profesor</mat-label>
+            <input matInput > {{es[0].profesor }}
+        </mat-form-field>
+        
+    </form>
+</div>
+
+<div *ngIf="!(curso$ | async)">
+    <p>No se encontró el curso</p>
+</div>
