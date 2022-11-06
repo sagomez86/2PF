@@ -12,7 +12,7 @@ import { AbmUsuarioService } from '../../services/abm-usuario.service';
 export class DetalleUsuariosComponent implements OnInit {
 
   
-  usuario$!: Observable<Usuario[]>;
+  usuario$!: Observable<Usuario>;
 
   constructor(
     private activateRoute: ActivatedRoute,

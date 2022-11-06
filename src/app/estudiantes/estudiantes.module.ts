@@ -9,8 +9,7 @@ import { ListaEstudiantesComponent } from './components/lista-estudiantes/lista-
 import { AbmEstudianteService } from './services/abm-estudiante.service';
 import { SharedModule } from '../shared/shared.module';
 import { DetalleEstudiantesComponent } from './components/detalle-estudiantes/detalle-estudiantes.component';
-import { MaterialModule } from '../material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 

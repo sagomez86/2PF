@@ -1,85 +1,82 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { CreacionUsuarioPipe } from 'src/app/shared/pipes/creacion-usuario.pipe';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Usuario } from '../models/usuario';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AbmUsuarioService {
 
-  private usuarios: Usuario[] = [
-    {
-    id: 1,
-    nombre: 'Santiago',
-    apellido: 'Gomez',
-    usuario: 'sgomez',
-    correo: 'sgomez@localhost',
-    contraseña: '12345'
-    },
-    {
-    id: 2,
-    nombre: 'Julia',
-    apellido: 'Hernandez',
-    usuario: 'jhernandez',
-    correo: 'jhernandez@localhost',
-    contraseña: '12345'
-    },
-    {
-    id: 3,
-    nombre: 'Diego',
-    apellido: 'Rodriguez',
-    usuario: 'drodriguez',
-    correo: 'drodriguez@localhost',
-    contraseña: '12345'
-    }
-  ];
+  constructor( private http: HttpClient ) {
 
-  private usuariosSubject: BehaviorSubject<Usuario[]>;
-
-  constructor() { 
-    this.usuariosSubject = new BehaviorSubject<Usuario[]>(this.usuarios);
   };
 
 
-///////////////////////////////  
-// Metodos ABM de usuario /////
-/////////////////////////////// 
+  ///////////////////////////////  
+  // Metodos ABM de usuario /////
+  /////////////////////////////// 
 
-// Obtener Lista de usuarios
-obtenerUsuarios(): Observable<Usuario[]>{
-  return this.usuariosSubject.asObservable();
-}
-
-// Obtener un usuario
-obtenerUsuario(id: number): Observable<Usuario[]>{
-  return this.obtenerUsuarios().pipe(
-    map((usuarios: Usuario[]) => usuarios.filter((e: Usuario) => e.id === id))
-  )
-}
-
-// Agregar usuario
-agregarUsuario(usuario: Usuario){
-  this.usuarios.push(usuario);
-  this.usuariosSubject.next(this.usuarios);
-}
-
-// Borrar usuario
-eliminarUsuario(id: number){
-  let indice = this.usuarios.findIndex((u: Usuario) => u.id === id);
-  if(indice > -1){
-    this.usuarios.splice(indice, 1);
+  // Obtener Lista de usuarios
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${environment.api}/usuarios`, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
+    )
   }
-  this.usuariosSubject.next(this.usuarios);
-}
 
-// Editar usuario
-editarUsuario(usuario: Usuario){
-  let indice = this.usuarios.findIndex((u: Usuario) => u.id === usuario.id);
-  if(indice > -1){
-    this.usuarios[indice] = usuario;
+  // Obtener un usuario
+  obtenerUsuario(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(`${environment.api}/usuarios/${id}`, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
+    )
   }
-  this.usuariosSubject.next(this.usuarios);
-}
+
+  // Agregar usuario
+  agregarUsuario(usuario: Usuario) {
+    this.http.post(`${environment.api}/usuarios/`, usuario, {
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
+  }
+
+  // Borrar usuario
+  eliminarUsuario(id: number) {
+    this.http.delete<Usuario>(`${environment.api}/usuarios/${id}`).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
+    alert("Registro eliminado");
+  }
+
+  // Editar usuario
+  editarUsuario(usuario: Usuario) {
+    this.http.put<Usuario>(`${environment.api}/usuarios/${usuario.id}`, usuario).pipe(
+      catchError(this.manejarError)
+    ).subscribe(console.log);
+  }
+
+  private manejarError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.warn('Error del lado del cliente', error.error.message);
+    } else {
+      console.warn('Error del lado del servidor', error.error.message);
+    }
+
+    return throwError(() => new Error('Error en la comunicacion HTTP'));
+  }
 
 }

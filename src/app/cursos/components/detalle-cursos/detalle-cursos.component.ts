@@ -11,7 +11,7 @@ import { AbmCursoService } from '../../services/abm-curso.service';
 })
 export class DetalleCursosComponent implements OnInit {
 
-  curso$!: Observable<Curso[]>;
+  curso$!: Observable<Curso>;
 
   constructor(
     private activateRoute: ActivatedRoute,

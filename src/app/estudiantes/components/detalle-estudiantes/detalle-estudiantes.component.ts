@@ -11,7 +11,7 @@ import { AbmEstudianteService } from '../../services/abm-estudiante.service';
 })
 export class DetalleEstudiantesComponent implements OnInit {
 
-  estudiante$!: Observable<Estudiante[]>;
+  estudiante$!: Observable<Estudiante>;
 
   constructor(
     private activateRoute: ActivatedRoute,

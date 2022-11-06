@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaginaNoEncontradaComponent } from '../core/pagina-no-encontrada/pagina-no-encontrada.component';
+import { AgregarEstudiantesComponent } from './components/agregar-estudiantes/agregar-estudiantes.component';
+import { DetalleEstudiantesComponent } from './components/detalle-estudiantes/detalle-estudiantes.component';
+import { EditarEstudiantesComponent } from './components/editar-estudiantes/editar-estudiantes.component';
+import { InicioEstudiantesComponent } from './components/inicio-estudiantes/inicio-estudiantes.component';
+import { ListaEstudiantesComponent } from './components/lista-estudiantes/lista-estudiantes.component';
 
 const routes: Routes = [
-  
-  {path:'**', component: PaginaNoEncontradaComponent}
+  { path: '', component: InicioEstudiantesComponent, children: [
+    { path: 'lista', component: ListaEstudiantesComponent },
+    { path: 'editar', component: EditarEstudiantesComponent },
+    { path: 'agregar', component: AgregarEstudiantesComponent },
+    { path: ':id', component: DetalleEstudiantesComponent}
+  ]}
 ];
 
 @NgModule({
