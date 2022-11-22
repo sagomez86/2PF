@@ -23,9 +23,45 @@
         <mat-form-field appearance="fill">
             <mat-label>Curso</mat-label>
             <input matInput > {{es[0].curso }}
-        </mat-form-field>
-        
+        </mat-form-field>        
     </form>
+    <br>
+    <div *ngIf="cursosEstudiante">       
+        <h2>Cursos inscripto</h2>
+        <table mat-table [dataSource]="cursosEstudiante" class="mat-elevation-z8">
+
+            <!--- Note that these columns can be defined in any order. <pre>{{inscripciones$ | async | json}}</pre>
+                The actual rendered columns are set as a property on the row definition" -->
+        
+        
+            <!-- Curso Column -->
+            <ng-container matColumnDef="curso">
+              <th mat-header-cell *matHeaderCellDef>
+                <span appTextoa20px> Curso</span>
+              </th>
+              <td mat-cell *matCellDef="let curso"> {{ curso.nombre }} </td>
+            </ng-container>
+        
+            <!-- Accion Column -->
+            <ng-container matColumnDef="accion">
+              <th mat-header-cell *matHeaderCellDef>
+                <span appTextoa20px> Desinscribir </span>
+              </th>
+              <td mat-cell *matCellDef="let curso">
+                <button mat-button (click)="desincribirEstudianteCurso(curso.id)">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+        
+            <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+          </table>
+        
+    </div>  
+</div>
+<div *ngIf="!cursosEstudiante">
+    <p>No hay Cursos</p>
 </div>
 
 <div *ngIf="!(estudiante$ | async)">

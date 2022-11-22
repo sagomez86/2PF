@@ -48,7 +48,8 @@ const routes: Routes = [
     { path: 'lista', component: ListarInscripcionComponent },
     { path: 'editar', component: EditarInscripcionComponent },
     { path: 'agregar', component: AgregarInscripcionComponent },
-    { path: 'detalle', component: DetalleInscripcionesComponent }
+    { path: 'detalle', component: DetalleInscripcionesComponent },
+    { path: ':id', component: DetalleInscripcionesComponent}
   ]},
   {path:'**', component: PaginaNoEncontradaComponent}
 ];

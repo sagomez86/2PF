@@ -14,41 +14,98 @@ export class AbmInscripcionService {
   inscripciones: Inscripcion[] = [
     {
       id: 1,
-      id_estudiantes: [11,12,13],
+      id_estudiante: 1,
       id_curso: 1,
       fechaInscripcion: new Date(),
       id_usuario: 1
     },
     {
       id: 2,
-      id_estudiantes: [21,22,23],
+      id_estudiante: 2,
       id_curso: 2,
       fechaInscripcion: new Date(),
       id_usuario: 1
     },
     {
       id: 3,
-      id_estudiantes: [31,32,33],
+      id_estudiante: 3,
       id_curso: 3,
+      fechaInscripcion: new Date(),
+      id_usuario: 1
+    },
+    {
+      id: 4,
+      id_estudiante: 1,
+      id_curso: 2,
+      fechaInscripcion: new Date(),
+      id_usuario: 1
+    },
+    {
+      id: 5,
+      id_estudiante: 1,
+      id_curso: 3,
+      fechaInscripcion: new Date(),
+      id_usuario: 1
+    },
+    {
+      id: 6,
+      id_estudiante: 2,
+      id_curso: 3,
+      fechaInscripcion: new Date(),
+      id_usuario: 1
+    },
+    {
+      id: 7,
+      id_estudiante: 3,
+      id_curso: 2,
       fechaInscripcion: new Date(),
       id_usuario: 1
     }
   ];
-  
+
 
 
   constructor() {
-    this.inscripcionesSubject = new BehaviorSubject<Inscripcion[]>(this.inscripciones) 
-   }
+    this.inscripcionesSubject = new BehaviorSubject<Inscripcion[]>(this.inscripciones)
+  }
 
 
-  obtenerInscripciones(): Observable<Inscripcion[]>{
+  obtenerInscripciones(): Observable<Inscripcion[]> {
     return this.inscripcionesSubject.asObservable()
   }
 
-  obtenerEstudiantesCurso(curso: Curso) : Observable<Inscripcion[]>{
+  obtenerEstudiantesCurso(idC: number): Observable<Inscripcion[]> {
     return this.obtenerInscripciones().pipe(
-      map((ins: Inscripcion[]) => ins.filter((ins: Inscripcion) => ins.id_curso === curso.id)));
+      map((ins: Inscripcion[]) => ins.filter((ins: Inscripcion) => ins.id_curso === idC)));
+  }
+
+  obtenerInscripcionEstudiante(idE: number): Observable<Inscripcion[]> {
+    return this.obtenerInscripciones().pipe(
+      map((ins: Inscripcion[]) => ins.filter((ins: Inscripcion) => ins.id_estudiante === idE)));
+  }
+
+  // Borrar Inscripcion Curso -> Estudiante  && (i.id_estudiante === idE)
+  eliminarInscripcionCursoEstudiante(idC: number, idE: number) {
+
+    let indice = this.inscripciones.findIndex((i: Inscripcion) => ((i.id_curso === idC) && (i.id_estudiante === idE)));
+    if (indice > -1) {
+      this.inscripciones.splice(indice, 1);
+    }
+    this.inscripcionesSubject.next(this.inscripciones);
+  }
+
+  agregarInscripcion(inscripcion: Inscripcion) {
+    this.inscripciones.push(inscripcion);
+    this.inscripcionesSubject.next(this.inscripciones);
+  }
+
+
+  eliminarInscripcion(id: number) {
+    let indice = this.inscripciones.findIndex((i: Inscripcion) => i.id === id);
+    if (indice > -1) {
+      this.inscripciones.splice(indice, 1);
+    }
+    this.inscripcionesSubject.next(this.inscripciones);
   }
 
 }

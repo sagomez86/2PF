@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Estudiante } from 'src/app/estudiantes/models/estudiante';
+import { AbmEstudianteService } from 'src/app/estudiantes/services/abm-estudiante.service';
+import { Inscripcion } from 'src/app/inscripciones/models/inscripcion';
+import { AbmInscripcionService } from 'src/app/inscripciones/services/abm-inscripcion.service';
 import { Curso } from '../../models/curso';
 import { AbmCursoService } from '../../services/abm-curso.service';
 
@@ -12,18 +16,47 @@ import { AbmCursoService } from '../../services/abm-curso.service';
 export class DetalleCursosComponent implements OnInit {
 
   curso$!: Observable<Curso[]>;
+  estudiantesCurso: Estudiante[] = []
+  estudiantesCurso$!: Observable<Estudiante[]>;
+  idC!: number;
+  estudiante$!: Observable<Estudiante[]>;
+  inscripciones$!: Observable<Inscripcion[]>;
+  cursos$!: Observable<Curso[]>;
+
+  columnas: string[] = ["estudiante", "accion"];
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private cursoService: AbmCursoService
+    private cursoService: AbmCursoService,
+    private inscripcionService: AbmInscripcionService,
+    private estudianteService: AbmEstudianteService
   ) { }
 
   ngOnInit(): void {
     this.activateRoute.paramMap.subscribe((parametros) => {
       let id = parseInt(parametros.get('id') || '0');
-
       this.curso$ = this.cursoService.obtenerCurso(id);
+      this.idC = id;
+      this.inscripciones$ = this.inscripcionService. obtenerEstudiantesCurso(id);
+
+      this.inscripciones$.subscribe((val) => {
+        for (let i of val.values()) {
+          id = i.id_estudiante;
+          this.estudiantesCurso$ = this.estudianteService.obtenerEstudiante(id);
+          this.estudiantesCurso$.subscribe((valor) => {
+            this.estudiantesCurso.push(valor[0]);
+            console.log('cursosEstudiante', this.estudiantesCurso)
+          })
+        }
+      })
     })
   }
 
+
+  desincribirEstudianteCurso(arg0: any) {
+    throw new Error('Method not implemented.');
+    }
+
+
+    
 }

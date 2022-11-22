@@ -13,24 +13,12 @@ import { AbmInscripcionService } from '../../services/abm-inscripcion.service';
 export class InicioInscripcionComponent implements OnInit {
 
   constructor(
-    private inscripcionService: AbmInscripcionService,
-    private estudianteService: AbmEstudianteService
+    
   ) { }
 
   ngOnInit(): void {
-    this.inscripcion$ = this.inscripcionService.obtenerEstudiantesCurso(this.cursoPrueba)
-    console.log(this.inscripcion$)
+    
   }
-
-  cursoPrueba : Curso = {
-    id: 2,
-    nombre: 'algo',
-    cantidad_horas: 0,
-    cantidad_clases: 0,
-    profesor: ''
-  }
-  inscripcion$! : Observable<Inscripcion[]>
-
-  
+ 
 
 }
