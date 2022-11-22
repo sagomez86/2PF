@@ -4,5 +4,6 @@ export interface Usuario {
     apellido:string,
     usuario:string,
     correo:string,
-    contraseña:string
+    contrasena:string,
+    admin:boolean
 }

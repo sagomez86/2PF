@@ -16,14 +16,6 @@ import { AbmCursoService } from '../../services/abm-curso.service';
 export class DetalleCursosComponent implements OnInit {
 
   curso$!: Observable<Curso[]>;
-  estudiantesCurso: Estudiante[] = []
-  estudiantesCurso$!: Observable<Estudiante[]>;
-  idC!: number;
-  estudiante$!: Observable<Estudiante[]>;
-  inscripciones$!: Observable<Inscripcion[]>;
-  cursos$!: Observable<Curso[]>;
-
-  columnas: string[] = ["estudiante", "accion"];
 
   constructor(
     private activateRoute: ActivatedRoute,
